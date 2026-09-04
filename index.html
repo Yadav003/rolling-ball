@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PlayArena Rolling Ball 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="gameCanvas" aria-label="PlayArena Rolling Ball 3D game"></canvas>
+
+    <!-- Top Navigation HUD -->
+    <header id="hud">
+      <div class="hud-left">
+        <div class="hud-card level-card">
+          <span id="levelBadge" class="level-pill">LEVEL 1</span>
+        </div>
+        <div class="hud-card">
+          <span class="hud-label">DISTANCE</span>
+          <strong id="distance">0 m</strong>
+        </div>
+        <div class="hud-card">
+          <span class="hud-label">GEMS</span>
+          <strong id="gems" class="gems-highlight">0</strong>
+        </div>
+      </div>
+
+      <!-- Center Level Goal Progress Bar -->
+      <div class="hud-center">
+        <div class="progress-bar-shell">
+          <div class="progress-bar-track">
+            <div id="levelProgressBar" class="progress-bar-fill"></div>
+          </div>
+          <span id="levelProgressText" class="progress-bar-label">0 / 1500 m</span>
+        </div>
+      </div>
+
+      <div class="hud-right">
+        <div class="hud-card">
+          <span class="hud-label">SPEED</span>
+          <strong id="speed">0 km/h</strong>
+        </div>
+        <div class="hud-card">
+          <span class="hud-label">BEST</span>
+          <strong id="best">0 m</strong>
+        </div>
+        <div class="hud-actions">
+          <button id="muteButton" class="hud-icon-btn" title="Toggle Audio" aria-label="Toggle Audio">🔊</button>
+          <button id="pauseButton" class="hud-icon-btn" title="Pause Game" aria-label="Pause Game">⏸</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Desktop Controls Tip -->
+    <div id="desktopTip" class="desktop-tip">
+      <span>Controls: <strong>A / D</strong> or <strong>◀ / ▶</strong> to Steer &bull; <strong>SPACE</strong> to Jump</span>
+    </div>
+
+    <!-- Start Screen Modal -->
+    <section id="startModal" class="overlay-modal">
+      <div class="modal-card start-card">
+        <div class="modal-badge start-badge">⚡ PLAYARENA ARCADE</div>
+        <h1 class="start-title">ROLLING BALL 3D</h1>
+        <p class="start-subtitle">Conquer high-speed sky tracks, leap over gaps, and collect rare gems!</p>
+
+        <div class="start-stage-badge">
+          <span class="stage-label">ACTIVE TRACK</span>
+          <span id="startLevelName" class="stage-name">Level 1: Neon Horizon</span>
+        </div>
+
+        <div class="controls-guide">
+          <div class="guide-item">
+            <span class="key-combo">A / D <small>or</small> ◀ ▶</span>
+            <span class="key-desc">Steer</span>
+          </div>
+          <div class="guide-item">
+            <span class="key-combo">SPACE</span>
+            <span class="key-desc">Jump</span>
+          </div>
+          <div class="guide-item">
+            <span class="key-combo">P</span>
+            <span class="key-desc">Pause</span>
+          </div>
+        </div>
+
+        <button id="playButton" class="action-btn play-btn" aria-label="Play Game">
+          <span class="play-icon">▶</span> PLAY GAME
+        </button>
+      </div>
+    </section>
+
+    <!-- Game Over Modal -->
+    <section id="message" class="overlay-modal hidden">
+      <div class="modal-card">
+        <div class="modal-badge">ROUND COMPLETED</div>
+        <h1 id="messageTitle">Game Over</h1>
+        <p id="messageText">The ball fell from the track.</p>
+        
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">DISTANCE</span>
+            <strong id="finalDistance">0 m</strong>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">GEMS</span>
+            <strong id="finalGems">0</strong>
+          </div>
+        </div>
+
+        <div class="modal-actions-row">
+          <button id="restartButton" class="action-btn">Play Again (Press R)</button>
+          <button id="menuFromGameOverBtn" class="secondary-btn">Main Menu</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Level Complete Modal -->
+    <section id="levelCompleteModal" class="overlay-modal hidden">
+      <div class="modal-card victory-card">
+        <div class="modal-badge victory-badge">STAGE CLEARED 🏁</div>
+        <h1 id="levelCompleteTitle">Level 1 Cleared!</h1>
+        <p id="levelCompleteText">You conquered the 1,500m course!</p>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">DISTANCE REACHED</span>
+            <strong id="levelCompleteDistance">1500 m</strong>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">GEMS COLLECTED</span>
+            <strong id="levelCompleteGems">0</strong>
+          </div>
+        </div>
+
+        <button id="nextLevelButton" class="action-btn victory-btn">Proceed to Level 2 ➔</button>
+      </div>
+    </section>
+
+    <!-- Pause Overlay Modal -->
+    <section id="pauseOverlay" class="overlay-modal hidden">
+      <div class="modal-card">
+        <h1>Game Paused</h1>
+        <p>Take a breath and roll again!</p>
+
+        <div class="level-select-block">
+          <span class="level-select-heading">SELECT LEVEL</span>
+          <div id="levelSelectContainer" class="level-chips-row"></div>
+        </div>
+
+        <div class="modal-actions-row">
+          <button id="resumeButton" class="action-btn">Resume (Press P)</button>
+          <button id="menuFromPauseBtn" class="secondary-btn">Main Menu</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile On-Screen Controls -->
+    <nav id="mobileControls" aria-hidden="true">
+      <div class="mobile-steer">
+        <button id="leftButton" class="mobile-btn" aria-label="Steer Left">◀</button>
+        <button id="rightButton" class="mobile-btn" aria-label="Steer Right">▶</button>
+      </div>
+      <div class="mobile-actions">
+        <button id="jumpButton" class="mobile-btn jump-btn" aria-label="Jump">▲ JUMP</button>
+      </div>
+    </nav>
+  </main>
+
+  <!-- Script Modules in Dependency Order -->
+  <script src="js/audio.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/track.js"></script>
+  <script src="js/collectibles.js"></script>
+  <script src="js/obstacles.js"></script>
+  <script src="js/level.js"></script>
+  <script src="js/collision.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

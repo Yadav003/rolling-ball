@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="deck" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd77d"/>
+      <stop offset=".55" stop-color="#d99a43"/>
+      <stop offset="1" stop-color="#955624"/>
+    </linearGradient>
+    <linearGradient id="side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#50687d"/>
+      <stop offset="1" stop-color="#172737"/>
+    </linearGradient>
+    <linearGradient id="rampEdge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f8d65b"/>
+      <stop offset="1" stop-color="#d99a18"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+
+  <!-- Shadow -->
+  <path d="M120 600 L650 600 L1030 300 L1110 350 L720 690 L120 690Z"
+        fill="#061522" opacity=".45" filter="url(#shadow)"/>
+
+  <!-- Ramp side structure -->
+  <path d="M115 510 L650 510 L1045 175 L1110 220 L700 650 L115 650Z"
+        fill="url(#side)" stroke="#0c1722" stroke-width="8"/>
+
+  <!-- Ramp deck -->
+  <path d="M145 475 L635 475 L1018 150 L1065 190 L680 565 L145 565Z"
+        fill="url(#deck)" stroke="#74451f" stroke-width="8"/>
+
+  <!-- Ramp transition -->
+  <path d="M635 475 L1018 150 L1065 190 L680 565Z"
+        fill="url(#rampEdge)" opacity=".35"/>
+
+  <!-- Wooden plank lines -->
+  <g stroke="#9b622d" stroke-width="5" opacity=".8">
+    <path d="M150 510 L600 510 L660 460"/>
+    <path d="M150 545 L565 545 L620 500"/>
+    <path d="M220 475 L255 565"/>
+    <path d="M330 475 L365 565"/>
+    <path d="M440 475 L475 565"/>
+    <path d="M550 475 L585 565"/>
+  </g>
+
+  <!-- Ramp center guide -->
+  <path d="M175 520 L600 520 L1018 170"
+        fill="none" stroke="#fff0a3" stroke-width="5" opacity=".55"/>
+
+  <!-- Left safety rail -->
+  <path d="M135 460 L620 460 L1008 130"
+        fill="none" stroke="#151b21" stroke-width="38" stroke-linecap="round"/>
+  <path d="M135 460 L620 460 L1008 130"
+        fill="none" stroke="#f2bf24" stroke-width="30" stroke-dasharray="62 38"/>
+  <path d="M135 460 L620 460 L1008 130"
+        fill="none" stroke="#171b20" stroke-width="30" stroke-dasharray="38 62" stroke-dashoffset="38"/>
+
+  <!-- Right safety rail -->
+  <path d="M135 585 L680 585 L1080 205"
+        fill="none" stroke="#151b21" stroke-width="38" stroke-linecap="round"/>
+  <path d="M135 585 L680 585 L1080 205"
+        fill="none" stroke="#f2bf24" stroke-width="30" stroke-dasharray="62 38"/>
+  <path d="M135 585 L680 585 L1080 205"
+        fill="none" stroke="#171b20" stroke-width="30" stroke-dasharray="38 62" stroke-dashoffset="38"/>
+
+  <!-- Rail highlights -->
+  <path d="M135 451 L620 451 L1008 121" fill="none" stroke="#fff18a" stroke-width="4" opacity=".7"/>
+  <path d="M135 576 L680 576 L1080 196" fill="none" stroke="#fff18a" stroke-width="4" opacity=".7"/>
+
+  <!-- Ramp support beams -->
+  <g fill="#263744">
+    <path d="M190 565 L220 565 L195 700 L165 700Z"/>
+    <path d="M390 565 L420 565 L400 680 L370 680Z"/>
+    <path d="M590 565 L620 565 L600 650 L570 650Z"/>
+  </g>
+
+  <!-- Landing platform -->
+  <path d="M1000 125 L1110 125 L1145 185 L1070 235 L980 190Z"
+        fill="url(#side)" stroke="#0c1722" stroke-width="7"/>
+  <path d="M1008 120 L1098 120 L1125 170 L1065 205 L995 175Z"
+        fill="url(#deck)" stroke="#74451f" stroke-width="6"/>
+
+  <!-- Landing edge -->
+  <path d="M995 175 L1065 205 L1125 170"
+        fill="none" stroke="#f2bf24" stroke-width="12"/>
+</svg>

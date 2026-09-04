@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 900">
+  <defs>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd879"/>
+      <stop offset=".55" stop-color="#dfa04b"/>
+      <stop offset="1" stop-color="#9b5c28"/>
+    </linearGradient>
+    <linearGradient id="side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#627789"/>
+      <stop offset="1" stop-color="#253746"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feGaussianBlur stdDeviation="13"/>
+    </filter>
+  </defs>
+
+  <!-- Shadow -->
+  <path d="M115 760 C170 850 320 870 500 870 C700 870 840 820 880 690
+           L820 650 C770 735 650 770 500 770 C350 770 225 735 180 650Z"
+        fill="#071522" opacity=".42" filter="url(#shadow)"/>
+
+  <!-- Outer structural track -->
+  <path d="M120 150
+           C70 260 75 500 145 625
+           C220 760 345 810 500 810
+           C655 810 780 760 855 625
+           C925 500 930 260 880 150
+           L735 150
+           C780 270 775 470 725 550
+           C675 630 595 670 500 670
+           C405 670 325 630 275 550
+           C225 470 220 270 265 150Z"
+        fill="url(#side)" stroke="#162532" stroke-width="10"/>
+
+  <!-- Wooden U-shaped deck -->
+  <path d="M150 130
+           C105 255 110 475 170 590
+           C235 715 350 765 500 765
+           C650 765 765 715 830 590
+           C890 475 895 255 850 130
+           L760 130
+           C805 275 800 450 750 530
+           C700 610 610 650 500 650
+           C390 650 300 610 250 530
+           C200 450 195 275 240 130Z"
+        fill="url(#wood)" stroke="#774820" stroke-width="8"/>
+
+  <!-- Plank lines -->
+  <g fill="none" stroke="#a96a31" stroke-width="5" opacity=".82">
+    <path d="M145 190 C115 310 125 475 180 570 C240 675 350 720 500 720 C650 720 760 675 820 570 C875 475 885 310 855 190"/>
+    <path d="M138 250 C115 355 130 470 185 550 C245 640 350 685 500 685 C650 685 755 640 815 550 C870 470 885 355 862 250"/>
+    <path d="M134 315 C120 405 140 480 195 535 C250 600 355 650 500 650 C645 650 750 600 805 535 C860 480 880 405 866 315"/>
+    <path d="M145 380 C140 440 165 490 210 530 C270 585 370 620 500 620 C630 620 730 585 790 530 C835 490 860 440 855 380"/>
+  </g>
+
+  <!-- Inner and outer safety rail bases -->
+  <path d="M120 130 C70 260 75 500 145 625 C220 760 345 810 500 810 C655 810 780 760 855 625 C925 500 930 260 880 130"
+        fill="none" stroke="#151b20" stroke-width="42" stroke-linecap="round"/>
+  <path d="M240 130 C195 275 200 450 250 530 C300 610 390 650 500 650 C610 650 700 610 750 530 C800 450 805 275 760 130"
+        fill="none" stroke="#151b20" stroke-width="42" stroke-linecap="round"/>
+
+  <!-- Yellow/black striped rails -->
+  <g fill="none" stroke-linecap="butt" stroke-width="34">
+    <path d="M120 130 C70 260 75 500 145 625 C220 760 345 810 500 810 C655 810 780 760 855 625 C925 500 930 260 880 130"
+          stroke="#f2bf24" stroke-dasharray="65 42"/>
+    <path d="M120 130 C70 260 75 500 145 625 C220 760 345 810 500 810 C655 810 780 760 855 625 C925 500 930 260 880 130"
+          stroke="#171b20" stroke-dasharray="42 65" stroke-dashoffset="42"/>
+
+    <path d="M240 130 C195 275 200 450 250 530 C300 610 390 650 500 650 C610 650 700 610 750 530 C800 450 805 275 760 130"
+          stroke="#f2bf24" stroke-dasharray="65 42"/>
+    <path d="M240 130 C195 275 200 450 250 530 C300 610 390 650 500 650 C610 650 700 610 750 530 C800 450 805 275 760 130"
+          stroke="#171b20" stroke-dasharray="42 65" stroke-dashoffset="42"/>
+  </g>
+
+  <!-- Rail highlights -->
+  <path d="M120 120 C70 250 75 500 145 625 C220 760 345 810 500 810 C655 810 780 760 855 625 C925 500 930 250 880 120"
+        fill="none" stroke="#fff19a" stroke-width="4" opacity=".65"/>
+  <path d="M240 120 C195 270 200 450 250 530 C300 610 390 650 500 650 C610 650 700 610 750 530 C800 450 805 270 760 120"
+        fill="none" stroke="#fff19a" stroke-width="4" opacity=".65"/>
+
+  <!-- Track support posts -->
+  <g fill="#273744">
+    <rect x="116" y="390" width="16" height="105" rx="5"/>
+    <rect x="182" y="620" width="16" height="105" rx="5" transform="rotate(-25 190 672)"/>
+    <rect x="802" y="620" width="16" height="105" rx="5" transform="rotate(25 810 672)"/>
+    <rect x="868" y="390" width="16" height="105" rx="5"/>
+  </g>
+
+  <!-- Small bolts -->
+  <g fill="#8ea0ab" stroke="#263640" stroke-width="3">
+    <circle cx="126" cy="250" r="6"/>
+    <circle cx="874" cy="250" r="6"/>
+    <circle cx="160" cy="585" r="6"/>
+    <circle cx="840" cy="585" r="6"/>
+    <circle cx="350" cy="735" r="6"/>
+    <circle cx="650" cy="735" r="6"/>
+  </g>
+</svg>

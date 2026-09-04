@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700">
+  <defs>
+    <linearGradient id="hub" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dce8f0"/>
+      <stop offset=".45" stop-color="#71889b"/>
+      <stop offset="1" stop-color="#263746"/>
+    </linearGradient>
+    <linearGradient id="arm" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffdf4d"/>
+      <stop offset=".5" stop-color="#e9ad18"/>
+      <stop offset="1" stop-color="#a65d08"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="450" cy="590" rx="270" ry="42"
+           fill="#061522" opacity=".42" filter="url(#shadow)"/>
+
+  <!-- Support pole -->
+  <path d="M410 300 L490 300 L520 590 L380 590Z"
+        fill="#1b2936" stroke="#0b141d" stroke-width="9"/>
+
+  <!-- Pole highlights -->
+  <path d="M425 315 L452 315 L475 565 L430 565Z"
+        fill="#71899a" opacity=".5"/>
+
+  <!-- Rotating hub -->
+  <circle cx="450" cy="300" r="92" fill="#101a23" stroke="#071019" stroke-width="10"/>
+  <circle cx="450" cy="300" r="68" fill="url(#hub)" stroke="#15232f" stroke-width="7"/>
+  <circle cx="450" cy="300" r="25" fill="#182632" stroke="#b9d0df" stroke-width="6"/>
+  <circle cx="450" cy="300" r="9" fill="#eff9ff"/>
+
+  <!-- Rotating arms -->
+  <g>
+    <!-- arm 1 -->
+    <path d="M435 282 L120 175 Q98 167 91 188 L82 214 Q78 232 101 237 L440 318Z"
+          fill="url(#arm)" stroke="#171d22" stroke-width="8"/>
+    <!-- arm 2 -->
+    <path d="M468 285 L790 172 Q812 165 819 188 L827 214 Q831 232 808 237 L462 318Z"
+          fill="url(#arm)" stroke="#171d22" stroke-width="8"/>
+    <!-- arm 3 -->
+    <path d="M432 320 L145 455 Q125 465 137 487 L151 508 Q161 523 181 511 L458 335Z"
+          fill="url(#arm)" stroke="#171d22" stroke-width="8"/>
+    <!-- arm 4 -->
+    <path d="M468 320 L755 455 Q775 465 763 487 L749 508 Q739 523 719 511 L442 335Z"
+          fill="url(#arm)" stroke="#171d22" stroke-width="8"/>
+  </g>
+
+  <!-- Black safety bands -->
+  <g fill="#1a2026">
+    <path d="M160 188 L207 203 L195 231 L148 217Z"/>
+    <path d="M692 203 L740 187 L752 217 L704 232Z"/>
+    <path d="M220 422 L250 408 L265 435 L235 451Z"/>
+    <path d="M650 408 L680 422 L665 451 L635 435Z"/>
+  </g>
+
+  <!-- Arm end caps -->
+  <g fill="#151d25" stroke="#71899a" stroke-width="5">
+    <circle cx="94" cy="211" r="25"/>
+    <circle cx="806" cy="211" r="25"/>
+    <circle cx="160" cy="486" r="25"/>
+    <circle cx="740" cy="486" r="25"/>
+  </g>
+
+  <!-- Warning lights -->
+  <g>
+    <circle cx="95" cy="211" r="9" fill="#ff5353"/>
+    <circle cx="805" cy="211" r="9" fill="#ff5353"/>
+    <circle cx="160" cy="486" r="9" fill="#ff5353"/>
+    <circle cx="740" cy="486" r="9" fill="#ff5353"/>
+  </g>
+
+  <!-- Motion accents -->
+  <g fill="none" stroke="#bdefff" stroke-width="6" opacity=".55">
+    <path d="M235 105 Q450 10 665 105"/>
+    <path d="M220 520 Q450 640 680 520"/>
+  </g>
+</svg>

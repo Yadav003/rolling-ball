@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650">
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef5f8"/>
+      <stop offset=".45" stop-color="#8b9da8"/>
+      <stop offset="1" stop-color="#394a56"/>
+    </linearGradient>
+    <linearGradient id="yellow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe75b"/>
+      <stop offset=".5" stop-color="#f0b719"/>
+      <stop offset="1" stop-color="#a96b08"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="170%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="450" cy="550" rx="330" ry="35"
+           fill="#061522" opacity=".42" filter="url(#shadow)"/>
+
+  <!-- Barrier supports -->
+  <path d="M120 150 L180 150 L205 515 L115 515Z"
+        fill="url(#metal)" stroke="#1c2b36" stroke-width="8"/>
+  <path d="M720 150 L780 150 L785 515 L695 515Z"
+        fill="url(#metal)" stroke="#1c2b36" stroke-width="8"/>
+
+  <!-- Feet -->
+  <path d="M90 500 L215 500 L235 535 L70 535Z"
+        fill="#263742" stroke="#111c25" stroke-width="7"/>
+  <path d="M685 500 L810 500 L830 535 L665 535Z"
+        fill="#263742" stroke="#111c25" stroke-width="7"/>
+
+  <!-- Main horizontal barrier -->
+  <rect x="125" y="105" width="650" height="105" rx="28"
+        fill="#151c23" stroke="#080e13" stroke-width="9"/>
+
+  <!-- Yellow/black warning stripes -->
+  <g>
+    <path d="M145 112 L215 112 L165 203 L95 203Z" fill="url(#yellow)"/>
+    <path d="M215 112 L285 112 L235 203 L165 203Z" fill="#171b20"/>
+    <path d="M285 112 L355 112 L305 203 L235 203Z" fill="url(#yellow)"/>
+    <path d="M355 112 L425 112 L375 203 L305 203Z" fill="#171b20"/>
+    <path d="M425 112 L495 112 L445 203 L375 203Z" fill="url(#yellow)"/>
+    <path d="M495 112 L565 112 L515 203 L445 203Z" fill="#171b20"/>
+    <path d="M565 112 L635 112 L585 203 L515 203Z" fill="url(#yellow)"/>
+    <path d="M635 112 L705 112 L655 203 L585 203Z" fill="#171b20"/>
+    <path d="M705 112 L755 112 L705 203 L655 203Z" fill="url(#yellow)"/>
+  </g>
+
+  <!-- Top metallic edge -->
+  <rect x="150" y="115" width="600" height="9" rx="4"
+        fill="#fff29a" opacity=".75"/>
+
+  <!-- Warning lights -->
+  <g>
+    <circle cx="145" cy="245" r="21" fill="#ff4242" stroke="#17212a" stroke-width="7"/>
+    <circle cx="755" cy="245" r="21" fill="#ff4242" stroke="#17212a" stroke-width="7"/>
+    <circle cx="145" cy="245" r="9" fill="#ffd1c8"/>
+    <circle cx="755" cy="245" r="9" fill="#ffd1c8"/>
+  </g>
+
+  <!-- Under-bar clearance marker -->
+  <path d="M255 315 L645 315 L620 365 L280 365Z"
+        fill="#202b34" stroke="#101820" stroke-width="6"/>
+
+  <g fill="#f2bf24">
+    <path d="M285 325 L325 325 L305 355 L265 355Z"/>
+    <path d="M365 325 L405 325 L385 355 L345 355Z"/>
+    <path d="M445 325 L485 325 L465 355 L425 355Z"/>
+    <path d="M525 325 L565 325 L545 355 L505 355Z"/>
+    <path d="M605 325 L645 325 L625 355 L585 355Z"/>
+  </g>
+
+  <!-- Bolts -->
+  <g fill="#dce7ee" stroke="#344853" stroke-width="4">
+    <circle cx="155" cy="150" r="8"/>
+    <circle cx="745" cy="150" r="8"/>
+    <circle cx="145" cy="470" r="8"/>
+    <circle cx="755" cy="470" r="8"/>
+  </g>
+
+  <!-- Small directional arrows -->
+  <g fill="#ffffff" opacity=".85">
+    <path d="M300 420 L345 420 L345 405 L380 430 L345 455 L345 440 L300 440Z"/>
+    <path d="M520 420 L565 420 L565 405 L600 430 L565 455 L565 440 L520 440Z"/>
+  </g>
+</svg>

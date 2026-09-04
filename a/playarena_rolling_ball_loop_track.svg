@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900">
+  <defs>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd879"/>
+      <stop offset=".55" stop-color="#dfa04a"/>
+      <stop offset="1" stop-color="#9b5c28"/>
+    </linearGradient>
+    <linearGradient id="side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#65798b"/>
+      <stop offset="1" stop-color="#253746"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-20%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="450" cy="820" rx="300" ry="38" fill="#071522" opacity=".4" filter="url(#shadow)"/>
+
+  <!-- Outer loop structure -->
+  <path d="M185 150
+           C65 255 65 560 185 700
+           C330 870 570 870 715 700
+           C835 560 835 255 715 150
+           L600 150
+           C695 235 705 465 625 555
+           C540 650 360 650 275 555
+           C195 465 205 235 300 150Z"
+        fill="url(#side)" stroke="#172633" stroke-width="10"/>
+
+  <!-- Wooden loop track -->
+  <path d="M205 130
+           C95 245 100 535 210 665
+           C335 815 565 815 690 665
+           C800 535 805 245 695 130
+           L590 130
+           C680 245 680 450 610 530
+           C540 610 360 610 290 530
+           C220 450 220 245 310 130Z"
+        fill="url(#wood)" stroke="#774820" stroke-width="8"/>
+
+  <!-- Plank lines following loop -->
+  <g fill="none" stroke="#a96a31" stroke-width="5" opacity=".82">
+    <path d="M185 190 C105 300 115 510 210 630 C325 770 575 770 690 630 C785 510 795 300 715 190"/>
+    <path d="M165 255 C120 350 135 500 225 600 C330 715 570 715 675 600 C765 500 780 350 735 255"/>
+    <path d="M160 330 C145 420 170 500 245 575 C340 665 560 665 655 575 C730 500 755 420 740 330"/>
+    <path d="M175 410 C180 475 205 520 265 560 C350 620 550 620 635 560 C695 520 720 475 725 410"/>
+  </g>
+
+  <!-- Outer safety rail -->
+  <path d="M205 130 C95 245 100 535 210 665 C335 815 565 815 690 665 C800 535 805 245 695 130"
+        fill="none" stroke="#151b20" stroke-width="42" stroke-linecap="round"/>
+  <path d="M205 130 C95 245 100 535 210 665 C335 815 565 815 690 665 C800 535 805 245 695 130"
+        fill="none" stroke="#f2bf24" stroke-width="34" stroke-dasharray="68 44"/>
+  <path d="M205 130 C95 245 100 535 210 665 C335 815 565 815 690 665 C800 535 805 245 695 130"
+        fill="none" stroke="#171b20" stroke-width="34" stroke-dasharray="44 68" stroke-dashoffset="44"/>
+
+  <!-- Inner safety rail -->
+  <path d="M310 130 C220 245 220 450 290 530 C360 610 540 610 610 530 C680 450 680 245 590 130"
+        fill="none" stroke="#151b20" stroke-width="42" stroke-linecap="round"/>
+  <path d="M310 130 C220 245 220 450 290 530 C360 610 540 610 610 530 C680 450 680 245 590 130"
+        fill="none" stroke="#f2bf24" stroke-width="34" stroke-dasharray="68 44"/>
+  <path d="M310 130 C220 245 220 450 290 530 C360 610 540 610 610 530 C680 450 680 245 590 130"
+        fill="none" stroke="#171b20" stroke-width="34" stroke-dasharray="44 68" stroke-dashoffset="44"/>
+
+  <!-- Rail highlights -->
+  <path d="M205 120 C95 235 100 535 210 665 C335 815 565 815 690 665 C800 535 805 235 695 120"
+        fill="none" stroke="#fff19a" stroke-width="4" opacity=".7"/>
+  <path d="M310 120 C220 235 220 450 290 530 C360 610 540 610 610 530 C680 450 680 235 590 120"
+        fill="none" stroke="#fff19a" stroke-width="4" opacity=".7"/>
+
+  <!-- Loop supports -->
+  <g fill="#273744">
+    <rect x="185" y="590" width="18" height="130" rx="5" transform="rotate(-28 194 655)"/>
+    <rect x="697" y="590" width="18" height="130" rx="5" transform="rotate(28 706 655)"/>
+    <rect x="120" y="350" width="18" height="110" rx="5" transform="rotate(-8 129 405)"/>
+    <rect x="762" y="350" width="18" height="110" rx="5" transform="rotate(8 771 405)"/>
+  </g>
+
+  <!-- Connection platforms -->
+  <path d="M185 120 L310 120 L300 160 L195 160Z"
+        fill="#8798a3" stroke="#263541" stroke-width="6"/>
+  <path d="M590 120 L715 120 L705 160 L600 160Z"
+        fill="#8798a3" stroke="#263541" stroke-width="6"/>
+
+  <!-- Bolts -->
+  <g fill="#8ea0ab" stroke="#263640" stroke-width="3">
+    <circle cx="250" cy="135" r="6"/>
+    <circle cx="650" cy="135" r="6"/>
+    <circle cx="150" cy="480" r="6"/>
+    <circle cx="750" cy="480" r="6"/>
+    <circle cx="260" cy="690" r="6"/>
+    <circle cx="640" cy="690" r="6"/>
+  </g>
+</svg>
