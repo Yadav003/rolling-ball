@@ -2,11 +2,11 @@
 const LEVEL_CONFIGS = [
   {
     id: 1,
-    name: "Level 1: Sunlit Valley",
-    targetDistance: 1500,
-    trackWidth: 7.5,
-    curveIntensity: 1.0,
-    hillIntensity: 1.0,
+    name: "Sunlit Valley",
+    targetDistance: 800,
+    trackWidth: 7.6,
+    curveIntensity: 0.95,
+    hillIntensity: 0.85,
     theme: {
       deckA: "#e09f48",
       deckB: "#d28c38",
@@ -24,9 +24,9 @@ const LEVEL_CONFIGS = [
       skyBottom: "#e0f2fe"
     },
     obstacleConfig: {
-      frequency: 48,
-      movingSpeedMin: 2.5,
-      movingSpeedMax: 3.5,
+      frequency: 50,
+      movingSpeedMin: 2.2,
+      movingSpeedMax: 3.2,
       theme: {
         body: "#be123c",
         stripe: "#fbbf24",
@@ -37,11 +37,11 @@ const LEVEL_CONFIGS = [
   },
   {
     id: 2,
-    name: "Level 2: Cyber Neon Grid",
-    targetDistance: 2000,
-    trackWidth: 6.2, // Narrower track for increased challenge
-    curveIntensity: 1.45, // Tighter chicanes
-    hillIntensity: 1.35,
+    name: "Cyber Neon Grid",
+    targetDistance: 1500,
+    trackWidth: 6.6,
+    curveIntensity: 1.35,
+    hillIntensity: 1.20,
     theme: {
       deckA: "#1e1b4b", // Cyber indigo/obsidian
       deckB: "#141235",
@@ -59,14 +59,119 @@ const LEVEL_CONFIGS = [
       skyBottom: "#3b0764"
     },
     obstacleConfig: {
-      frequency: 28, // High obstacle density!
-      movingSpeedMin: 3.8,
-      movingSpeedMax: 6.2, // Faster oscillating obstacles
+      frequency: 36,
+      movingSpeedMin: 3.5,
+      movingSpeedMax: 5.2,
       theme: {
         body: "#4c0519",
         stripe: "#06b6d4",
         outline: "#ec4899",
         top: "#831843"
+      }
+    }
+  },
+  {
+    id: 3,
+    name: "Volcanic Magma Ridge",
+    targetDistance: 2000,
+    trackWidth: 6.0,
+    curveIntensity: 1.60,
+    hillIntensity: 1.45,
+    theme: {
+      deckA: "#261510", // Basalt charcoal
+      deckB: "#1a0d0a",
+      deckAvg: "#20110d",
+      curb: "#ff4500", // Molten lava red-orange
+      curbTick: "#ffaa00", // Magma yellow
+      slabLeft: "#170a08",
+      slabRight: "#0d0504",
+      boost: "#ff8800",
+      ramp: "#dc2626",
+      archPillar: "#ff4500",
+      archGlow: "#ffaa00",
+      skyTop: "#180505",
+      skyMid: "#450a0a",
+      skyBottom: "#ea580c"
+    },
+    obstacleConfig: {
+      frequency: 30,
+      movingSpeedMin: 4.2,
+      movingSpeedMax: 6.2,
+      theme: {
+        body: "#1c0909",
+        stripe: "#ff4500",
+        outline: "#ff9900",
+        top: "#7f1d1d"
+      }
+    }
+  },
+  {
+    id: 4,
+    name: "Glacial Aurora Peaks",
+    targetDistance: 2200,
+    trackWidth: 5.6,
+    curveIntensity: 1.85,
+    hillIntensity: 1.40,
+    theme: {
+      deckA: "#0f2b48", // Glacial crystal navy
+      deckB: "#0a1c32",
+      deckAvg: "#0c233d",
+      curb: "#38bdf8", // Polar cyan
+      curbTick: "#a5f3fc", // Aurora white-cyan
+      slabLeft: "#061322",
+      slabRight: "#030a13",
+      boost: "#22d3ee",
+      ramp: "#6366f1",
+      archPillar: "#38bdf8",
+      archGlow: "#a5f3fc",
+      skyTop: "#020617",
+      skyMid: "#082f49",
+      skyBottom: "#0f766e"
+    },
+    obstacleConfig: {
+      frequency: 26,
+      movingSpeedMin: 4.8,
+      movingSpeedMax: 6.8,
+      theme: {
+        body: "#082f49",
+        stripe: "#38bdf8",
+        outline: "#bae6fd",
+        top: "#0284c7"
+      }
+    }
+  },
+  {
+    id: 5,
+    name: "Cosmic Void & Nebula",
+    targetDistance: 2500,
+    trackWidth: 5.2,
+    curveIntensity: 2.15,
+    hillIntensity: 1.70,
+    theme: {
+      deckA: "#140727", // Quantum void violet
+      deckB: "#0c0318",
+      deckAvg: "#100520",
+      curb: "#d946ef", // Electric violet
+      curbTick: "#f43f5e", // Neon rose
+      slabLeft: "#0a0214",
+      slabRight: "#05010a",
+      boost: "#a855f7",
+      ramp: "#ec4899",
+      archPillar: "#d946ef",
+      archGlow: "#f43f5e",
+      skyTop: "#030014",
+      skyMid: "#0f051d",
+      skyBottom: "#2e1065"
+    },
+    obstacleConfig: {
+      frequency: 22,
+      movingSpeedMin: 5.5,
+      movingSpeedMax: 8.0,
+      theme: {
+        body: "#2e1065",
+        stripe: "#f43f5e",
+        outline: "#e879f9",
+        top: "#581c87"
       }
     }
   }

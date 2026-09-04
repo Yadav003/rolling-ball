@@ -25,60 +25,79 @@ class Obstacles {
     this.time = 0;
   }
 
+  createObstacleAt(track, z) {
+    const trackPoint = track.sample(z);
+    if (trackPoint.type === "boost" || trackPoint.type === "ramp") return null;
+
+    const speedMin = this.config.movingSpeedMin || 2.5;
+    const speedMax = this.config.movingSpeedMax || 3.5;
+    const halfW = trackPoint.width / 2;
+    const rand = Math.random();
+
+    if (rand < 0.35) {
+      // Static Single Lane Barrier
+      const laneOffset = (Math.floor(Math.random() * 3) - 1) * (halfW * 0.52);
+      return [{
+        type: "barrier",
+        x: trackPoint.x + laneOffset,
+        baseX: laneOffset,
+        y: trackPoint.y,
+        z,
+        width: 2.1,
+        height: 1.6,
+        moving: false
+      }];
+    } else if (rand < 0.65) {
+      // Dynamic Oscillating Barrier
+      return [{
+        type: "moving_barrier",
+        x: trackPoint.x,
+        baseX: 0,
+        y: trackPoint.y,
+        z,
+        width: 1.9,
+        height: 1.5,
+        moving: true,
+        speed: speedMin + Math.random() * (speedMax - speedMin),
+        phase: Math.random() * Math.PI * 2
+      }];
+    } else if (rand < 0.85) {
+      // Center Spire / Monolith (forces player to choose left or right)
+      return [{
+        type: "spire",
+        x: trackPoint.x,
+        baseX: 0,
+        y: trackPoint.y,
+        z,
+        width: 1.6,
+        height: 2.2,
+        moving: false
+      }];
+    } else {
+      // Double Pinch Gate (leaves narrow pass on one side)
+      const openSide = Math.random() < 0.5 ? -1 : 1;
+      return [{
+        type: "barrier",
+        x: trackPoint.x - openSide * (halfW * 0.45),
+        baseX: -openSide * (halfW * 0.45),
+        y: trackPoint.y,
+        z,
+        width: 2.4,
+        height: 1.6,
+        moving: false
+      }];
+    }
+  }
+
   generateForTrack(track, maxZ = 600) {
     this.items = [];
     const freq = this.config.frequency || 45;
-    const speedMin = this.config.movingSpeedMin || 2.5;
-    const speedMax = this.config.movingSpeedMax || 3.5;
 
     // Start obstacles after z = 50
     for (let z = 50; z < maxZ; z += freq * (0.85 + Math.random() * 0.35)) {
-      const trackPoint = track.sample(z);
-      if (trackPoint.type === "boost" || trackPoint.type === "ramp") continue;
-
-      const rand = Math.random();
-      const halfW = trackPoint.width / 2;
-
-      if (rand < 0.45) {
-        // Static Single Lane Barrier
-        const laneOffset = (Math.floor(Math.random() * 3) - 1) * (halfW * 0.55);
-        this.items.push({
-          type: "barrier",
-          x: trackPoint.x + laneOffset,
-          baseX: laneOffset,
-          y: trackPoint.y,
-          z,
-          width: 2.1,
-          height: 1.6,
-          moving: false
-        });
-      } else if (rand < 0.8) {
-        // Moving Oscillator Barrier
-        this.items.push({
-          type: "moving_barrier",
-          x: trackPoint.x,
-          baseX: 0,
-          y: trackPoint.y,
-          z,
-          width: 1.9,
-          height: 1.5,
-          moving: true,
-          speed: speedMin + Math.random() * (speedMax - speedMin),
-          phase: Math.random() * Math.PI * 2
-        });
-      } else {
-        // Double Gate / Side Pinch Barrier
-        const openSide = Math.random() < 0.5 ? -1 : 1;
-        this.items.push({
-          type: "barrier",
-          x: trackPoint.x - openSide * (halfW * 0.5),
-          baseX: -openSide * (halfW * 0.5),
-          y: trackPoint.y,
-          z,
-          width: 2.4,
-          height: 1.6,
-          moving: false
-        });
+      const created = this.createObstacleAt(track, z);
+      if (created) {
+        this.items.push(...created);
       }
     }
   }
@@ -87,41 +106,11 @@ class Obstacles {
     const startZ = currentMaxZ;
     const endZ = currentMaxZ + additionalZ;
     const freq = this.config.frequency || 45;
-    const speedMin = this.config.movingSpeedMin || 2.5;
-    const speedMax = this.config.movingSpeedMax || 3.5;
 
     for (let z = startZ; z < endZ; z += freq * (0.85 + Math.random() * 0.35)) {
-      const trackPoint = track.sample(z);
-      if (trackPoint.type === "boost" || trackPoint.type === "ramp") continue;
-
-      const rand = Math.random();
-      const halfW = trackPoint.width / 2;
-
-      if (rand < 0.5) {
-        const laneOffset = (Math.floor(Math.random() * 3) - 1) * (halfW * 0.55);
-        this.items.push({
-          type: "barrier",
-          x: trackPoint.x + laneOffset,
-          baseX: laneOffset,
-          y: trackPoint.y,
-          z,
-          width: 2.1,
-          height: 1.6,
-          moving: false
-        });
-      } else {
-        this.items.push({
-          type: "moving_barrier",
-          x: trackPoint.x,
-          baseX: 0,
-          y: trackPoint.y,
-          z,
-          width: 1.9,
-          height: 1.5,
-          moving: true,
-          speed: speedMin + Math.random() * (speedMax - speedMin),
-          phase: Math.random() * Math.PI * 2
-        });
+      const created = this.createObstacleAt(track, z);
+      if (created) {
+        this.items.push(...created);
       }
     }
   }

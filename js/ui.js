@@ -12,6 +12,8 @@ window.UI = {
   startLevelName: document.getElementById("startLevelName"),
   menuFromGameOverBtn: document.getElementById("menuFromGameOverBtn"),
   menuFromPauseBtn: document.getElementById("menuFromPauseBtn"),
+  menuFromVictoryBtn: document.getElementById("menuFromVictoryBtn"),
+  mobileTopProgressBar: document.getElementById("mobileTopProgressBar"),
 
   message: document.getElementById("message"),
   messageTitle: document.getElementById("messageTitle"),
@@ -58,6 +60,11 @@ window.UI = {
         if (onReturnToMenu) onReturnToMenu();
       });
     }
+    if (this.menuFromVictoryBtn) {
+      this.menuFromVictoryBtn.addEventListener("click", () => {
+        if (onReturnToMenu) onReturnToMenu();
+      });
+    }
 
     if (this.muteButton) {
       this.muteButton.addEventListener("click", () => {
@@ -93,13 +100,17 @@ window.UI = {
       this.levelBadgeElement.textContent = `LEVEL ${levelIndex + 1}`;
     }
     if (this.startLevelName) {
-      this.startLevelName.textContent = `Level ${levelIndex + 1}: ${levelName}`;
+      const cleanName = (levelName || "").replace(/^Level\s*\d+\s*:\s*/i, "").trim();
+      this.startLevelName.textContent = `Level ${levelIndex + 1}: ${cleanName}`;
     }
     if (this.levelProgressText) {
       this.levelProgressText.textContent = `0 / ${finishZ} m`;
     }
     if (this.levelProgressBar) {
       this.levelProgressBar.style.width = "0%";
+    }
+    if (this.mobileTopProgressBar) {
+      this.mobileTopProgressBar.style.width = "0%";
     }
     this.renderLevelSelector(levelIndex, unlockedLevel);
   },
@@ -136,6 +147,9 @@ window.UI = {
       const pct = Math.min(100, Math.max(0, (distance / finishZ) * 100));
       if (this.levelProgressBar) {
         this.levelProgressBar.style.width = `${pct.toFixed(1)}%`;
+      }
+      if (this.mobileTopProgressBar) {
+        this.mobileTopProgressBar.style.width = `${pct.toFixed(1)}%`;
       }
       if (this.levelProgressText) {
         this.levelProgressText.textContent = `${distMeters} / ${finishZ} m`;

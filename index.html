@@ -13,6 +13,11 @@
   <main id="game-shell">
     <canvas id="gameCanvas" aria-label="PlayArena Rolling Ball 3D game"></canvas>
 
+    <!-- Mobile Ultra-Thin Top Progress Bar (Visible on mobile screens) -->
+    <div id="mobileTopProgress" class="mobile-top-progress" aria-hidden="true">
+      <div id="mobileTopProgressBar" class="mobile-top-progress-bar"></div>
+    </div>
+
     <!-- Top Navigation HUD -->
     <header id="hud">
       <div class="hud-left">
@@ -35,7 +40,7 @@
           <div class="progress-bar-track">
             <div id="levelProgressBar" class="progress-bar-fill"></div>
           </div>
-          <span id="levelProgressText" class="progress-bar-label">0 / 1500 m</span>
+          <span id="levelProgressText" class="progress-bar-label">0 / 800 m</span>
         </div>
       </div>
 
@@ -63,13 +68,13 @@
     <!-- Start Screen Modal -->
     <section id="startModal" class="overlay-modal">
       <div class="modal-card start-card">
-        <div class="modal-badge start-badge">⚡ PLAYARENA ARCADE</div>
+        <div class="modal-badge start-badge">PLAYARENA ARCADE</div>
         <h1 class="start-title">ROLLING BALL 3D</h1>
         <p class="start-subtitle">Conquer high-speed sky tracks, leap over gaps, and collect rare gems!</p>
 
         <div class="start-stage-badge">
           <span class="stage-label">ACTIVE TRACK</span>
-          <span id="startLevelName" class="stage-name">Level 1: Neon Horizon</span>
+          <span id="startLevelName" class="stage-name">Level 1: Sunlit Valley</span>
         </div>
 
         <div class="controls-guide">
@@ -123,12 +128,12 @@
       <div class="modal-card victory-card">
         <div class="modal-badge victory-badge">STAGE CLEARED 🏁</div>
         <h1 id="levelCompleteTitle">Level 1 Cleared!</h1>
-        <p id="levelCompleteText">You conquered the 1,500m course!</p>
+        <p id="levelCompleteText">You conquered the 800m course!</p>
 
         <div class="stats-grid">
           <div class="stat-box">
             <span class="stat-label">DISTANCE REACHED</span>
-            <strong id="levelCompleteDistance">1500 m</strong>
+            <strong id="levelCompleteDistance">800 m</strong>
           </div>
           <div class="stat-box">
             <span class="stat-label">GEMS COLLECTED</span>
@@ -136,7 +141,10 @@
           </div>
         </div>
 
-        <button id="nextLevelButton" class="action-btn victory-btn">Proceed to Level 2 ➔</button>
+        <div class="modal-actions-row">
+          <button id="nextLevelButton" class="action-btn victory-btn">Proceed to Level 2 ➔</button>
+          <button id="menuFromVictoryBtn" class="secondary-btn">Main Menu</button>
+        </div>
       </div>
     </section>
 

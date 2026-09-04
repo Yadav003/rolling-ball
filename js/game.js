@@ -179,8 +179,9 @@ class Game {
   drawBackground(width, height) {
     const config = this.level.getCurrentConfig();
     const theme = config.theme;
+    const time = performance.now() * 0.001;
 
-    // Use custom SVG background for Level 1, or dynamic gradient for Level 2 (Cyber)
+    // Use custom SVG background for Level 1 if available, otherwise procedural scene
     if (config.id === 1 && this.backgroundImage.complete && this.backgroundImage.naturalWidth > 0) {
       const imageRatio = this.backgroundImage.naturalWidth / this.backgroundImage.naturalHeight;
       const canvasRatio = width / height;
@@ -203,14 +204,22 @@ class Game {
       const gradient = this.ctx.createLinearGradient(0, 0, 0, height);
       gradient.addColorStop(0, theme.skyTop || "#0284c7");
       gradient.addColorStop(0.38, theme.skyMid || "#38bdf8");
-      gradient.addColorStop(0.48, theme.skyBottom || "#e0f2fe");
+      gradient.addColorStop(0.50, theme.skyBottom || "#e0f2fe");
       gradient.addColorStop(1, "#070b14");
       this.ctx.fillStyle = gradient;
       this.ctx.fillRect(0, 0, width, height);
 
-      // Distant cyber stars/grid for Level 2
-      if (config.id === 2) {
-        this.drawCyberStars(width, height);
+      // Distinct procedural scenic elements per level
+      if (config.id === 1) {
+        this.drawSunlitHills(width, height);
+      } else if (config.id === 2) {
+        this.drawCyberStarsAndGrid(width, height);
+      } else if (config.id === 3) {
+        this.drawVolcanoBackground(width, height, time);
+      } else if (config.id === 4) {
+        this.drawGlacialAurora(width, height, time);
+      } else if (config.id === 5) {
+        this.drawCosmicVoid(width, height, time);
       }
     }
 
@@ -218,24 +227,236 @@ class Game {
     const horizonY = height * this.camera.horizon;
     const hazeGrad = this.ctx.createLinearGradient(0, horizonY - 45, 0, horizonY + 25);
     hazeGrad.addColorStop(0, "rgba(255, 255, 255, 0)");
-    hazeGrad.addColorStop(0.7, config.id === 2 ? "rgba(236, 72, 153, 0.25)" : "rgba(224, 242, 254, 0.45)");
+
+    let hazeColor = "rgba(224, 242, 254, 0.45)";
+    if (config.id === 2) hazeColor = "rgba(236, 72, 153, 0.25)";
+    else if (config.id === 3) hazeColor = "rgba(255, 69, 0, 0.35)";
+    else if (config.id === 4) hazeColor = "rgba(56, 189, 248, 0.30)";
+    else if (config.id === 5) hazeColor = "rgba(217, 70, 239, 0.28)";
+
+    hazeGrad.addColorStop(0.7, hazeColor);
     hazeGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
     this.ctx.fillStyle = hazeGrad;
     this.ctx.fillRect(0, horizonY - 45, width, 70);
   }
 
-  drawCyberStars(width, height) {
+  drawSunlitHills(width, height) {
+    const horizonY = height * this.camera.horizon;
     this.ctx.save();
+
+    // Distant sun
+    const sunGrad = this.ctx.createRadialGradient(width * 0.75, horizonY * 0.5, 5, width * 0.75, horizonY * 0.5, 65);
+    sunGrad.addColorStop(0, "rgba(255, 255, 230, 0.95)");
+    sunGrad.addColorStop(0.4, "rgba(255, 215, 0, 0.5)");
+    sunGrad.addColorStop(1, "rgba(255, 215, 0, 0)");
+    this.ctx.fillStyle = sunGrad;
+    this.ctx.beginPath();
+    this.ctx.arc(width * 0.75, horizonY * 0.5, 65, 0, Math.PI * 2);
+    this.ctx.fill();
+
+    // Rolling mountain ridges
+    this.ctx.fillStyle = "rgba(16, 110, 68, 0.28)";
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, horizonY);
+    for (let x = 0; x <= width; x += 40) {
+      const y = horizonY - 35 + Math.sin(x * 0.006) * 22 + Math.cos(x * 0.012) * 12;
+      this.ctx.lineTo(x, y);
+    }
+    this.ctx.lineTo(width, horizonY + 20);
+    this.ctx.lineTo(0, horizonY + 20);
+    this.ctx.closePath();
+    this.ctx.fill();
+
+    this.ctx.restore();
+  }
+
+  drawCyberStarsAndGrid(width, height) {
+    const horizonY = height * this.camera.horizon;
+    this.ctx.save();
+
+    // Distant cyber stars
     this.ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
-    // Static deterministic seed for stars
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 45; i++) {
       const sx = ((i * 137.5) % width);
-      const sy = ((i * 83.2) % (height * 0.38));
+      const sy = ((i * 83.2) % (horizonY * 0.95));
       const sz = (i % 3 === 0) ? 1.8 : 1.0;
       this.ctx.beginPath();
       this.ctx.arc(sx, sy, sz, 0, Math.PI * 2);
       this.ctx.fill();
     }
+
+    // Laser neon horizon line
+    this.ctx.strokeStyle = "rgba(236, 72, 153, 0.75)";
+    this.ctx.lineWidth = 2;
+    this.ctx.shadowColor = "#ec4899";
+    this.ctx.shadowBlur = 10;
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, horizonY);
+    this.ctx.lineTo(width, horizonY);
+    this.ctx.stroke();
+
+    this.ctx.restore();
+  }
+
+  drawVolcanoBackground(width, height, time) {
+    const horizonY = height * this.camera.horizon;
+    this.ctx.save();
+
+    // Jagged volcanic mountain silhouette
+    this.ctx.fillStyle = "rgba(28, 10, 8, 0.75)";
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, horizonY);
+    for (let x = 0; x <= width; x += 30) {
+      const peak = Math.sin(x * 0.008) * 45 + Math.sin(x * 0.024) * 22;
+      this.ctx.lineTo(x, horizonY - 20 - Math.max(0, peak));
+    }
+    this.ctx.lineTo(width, horizonY + 20);
+    this.ctx.lineTo(0, horizonY + 20);
+    this.ctx.closePath();
+    this.ctx.fill();
+
+    // Molten crater glow at peaks
+    const craterGrad = this.ctx.createRadialGradient(width * 0.35, horizonY - 45, 4, width * 0.35, horizonY - 45, 80);
+    craterGrad.addColorStop(0, "rgba(255, 120, 0, 0.65)");
+    craterGrad.addColorStop(0.5, "rgba(220, 38, 38, 0.3)");
+    craterGrad.addColorStop(1, "rgba(220, 38, 38, 0)");
+    this.ctx.fillStyle = craterGrad;
+    this.ctx.fillRect(width * 0.35 - 80, horizonY - 125, 160, 100);
+
+    // Rising volcanic embers
+    for (let i = 0; i < 28; i++) {
+      const px = ((i * 73.1 + time * 18) % width);
+      const py = horizonY - (((time * (25 + (i % 15)) + i * 42) % (horizonY * 0.9)));
+      const alpha = Math.sin((py / horizonY) * Math.PI) * 0.85;
+      if (alpha > 0.05) {
+        this.ctx.fillStyle = (i % 2 === 0) ? `rgba(255, 170, 0, ${alpha})` : `rgba(255, 69, 0, ${alpha})`;
+        this.ctx.beginPath();
+        this.ctx.arc(px, py, 1.2 + (i % 3) * 0.6, 0, Math.PI * 2);
+        this.ctx.fill();
+      }
+    }
+
+    this.ctx.restore();
+  }
+
+  drawGlacialAurora(width, height, time) {
+    const horizonY = height * this.camera.horizon;
+    this.ctx.save();
+
+    // Animated Northern Lights (Aurora Borealis) ribbons
+    for (let band = 0; band < 3; band++) {
+      const ribbonGrad = this.ctx.createLinearGradient(0, horizonY * 0.1, 0, horizonY * 0.9);
+      if (band === 0) {
+        ribbonGrad.addColorStop(0, "rgba(16, 185, 129, 0)");
+        ribbonGrad.addColorStop(0.5, "rgba(16, 185, 129, 0.32)");
+        ribbonGrad.addColorStop(1, "rgba(56, 189, 248, 0)");
+      } else if (band === 1) {
+        ribbonGrad.addColorStop(0, "rgba(56, 189, 248, 0)");
+        ribbonGrad.addColorStop(0.5, "rgba(6, 182, 212, 0.28)");
+        ribbonGrad.addColorStop(1, "rgba(168, 85, 247, 0)");
+      } else {
+        ribbonGrad.addColorStop(0, "rgba(168, 85, 247, 0)");
+        ribbonGrad.addColorStop(0.5, "rgba(192, 132, 252, 0.22)");
+        ribbonGrad.addColorStop(1, "rgba(56, 189, 248, 0)");
+      }
+
+      this.ctx.fillStyle = ribbonGrad;
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, horizonY * 0.7);
+
+      for (let x = 0; x <= width; x += 25) {
+        const offset = Math.sin(x * 0.005 + time * 0.8 + band * 1.5) * 35 
+                     + Math.cos(x * 0.012 - time * 0.5) * 20;
+        this.ctx.lineTo(x, horizonY * 0.35 + offset + band * 22);
+      }
+
+      this.ctx.lineTo(width, horizonY * 0.85);
+      this.ctx.lineTo(0, horizonY * 0.85);
+      this.ctx.closePath();
+      this.ctx.fill();
+    }
+
+    // Twinkling crystal stars
+    this.ctx.fillStyle = "rgba(224, 242, 254, 0.85)";
+    for (let i = 0; i < 40; i++) {
+      const sx = ((i * 123.4) % width);
+      const sy = ((i * 71.9) % (horizonY * 0.65));
+      const sz = 1.0 + Math.sin(time * 3 + i) * 0.5;
+      this.ctx.beginPath();
+      this.ctx.arc(sx, sy, Math.max(0.8, sz), 0, Math.PI * 2);
+      this.ctx.fill();
+    }
+
+    // Sharp icy mountain peaks
+    this.ctx.fillStyle = "rgba(10, 30, 52, 0.75)";
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, horizonY);
+    for (let x = 0; x <= width; x += 35) {
+      const peak = Math.abs(Math.sin(x * 0.01 + 0.5)) * 55 + Math.sin(x * 0.02) * 18;
+      this.ctx.lineTo(x, horizonY - peak);
+    }
+    this.ctx.lineTo(width, horizonY + 20);
+    this.ctx.lineTo(0, horizonY + 20);
+    this.ctx.closePath();
+    this.ctx.fill();
+
+    this.ctx.restore();
+  }
+
+  drawCosmicVoid(width, height, time) {
+    const horizonY = height * this.camera.horizon;
+    this.ctx.save();
+
+    // Multi-layered glowing quantum nebula clouds
+    const nebulae = [
+      { x: width * 0.28, y: horizonY * 0.42, r: 120, color: "rgba(168, 85, 247, 0.26)" },
+      { x: width * 0.72, y: horizonY * 0.36, r: 140, color: "rgba(236, 72, 153, 0.24)" },
+      { x: width * 0.50, y: horizonY * 0.60, r: 110, color: "rgba(6, 182, 212, 0.20)" }
+    ];
+
+    nebulae.forEach(n => {
+      const grad = this.ctx.createRadialGradient(n.x, n.y, 10, n.x, n.y, n.r);
+      grad.addColorStop(0, n.color);
+      grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+      this.ctx.fillStyle = grad;
+      this.ctx.beginPath();
+      this.ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      this.ctx.fill();
+    });
+
+    // Dense twinkling starfield
+    this.ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+    for (let i = 0; i < 65; i++) {
+      const sx = ((i * 149.3) % width);
+      const sy = ((i * 91.7) % (horizonY * 0.95));
+      const sz = (i % 5 === 0) ? (1.5 + Math.sin(time * 4 + i) * 0.7) : (i % 2 === 0 ? 1.2 : 0.8);
+      this.ctx.beginPath();
+      this.ctx.arc(sx, sy, Math.max(0.5, sz), 0, Math.PI * 2);
+      this.ctx.fill();
+    }
+
+    // Majestic celestial ringed exoplanet on upper horizon
+    const planetX = width * 0.82;
+    const planetY = horizonY * 0.45;
+    const planetR = Math.min(38, width * 0.06);
+
+    // Planet body
+    const planetGrad = this.ctx.createRadialGradient(planetX - planetR * 0.3, planetY - planetR * 0.3, 4, planetX, planetY, planetR);
+    planetGrad.addColorStop(0, "#d946ef");
+    planetGrad.addColorStop(0.6, "#701a75");
+    planetGrad.addColorStop(1, "#18021f");
+    this.ctx.fillStyle = planetGrad;
+    this.ctx.beginPath();
+    this.ctx.arc(planetX, planetY, planetR, 0, Math.PI * 2);
+    this.ctx.fill();
+
+    // Planet rings
+    this.ctx.strokeStyle = "rgba(236, 72, 153, 0.65)";
+    this.ctx.lineWidth = 3;
+    this.ctx.beginPath();
+    this.ctx.ellipse(planetX, planetY, planetR * 1.9, planetR * 0.45, -0.35, 0, Math.PI * 2);
+    this.ctx.stroke();
+
     this.ctx.restore();
   }
 
